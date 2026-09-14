@@ -163,8 +163,11 @@ public class Aerolinea
      */
     public Vuelo getVuelo( String codigoRuta, String fechaVuelo )
     {
-        // TODO implementar
-        return null;
+        for (Vuelo vuelo:this.vuelos) {
+        	if (vuelo.getRuta().getCodigoRuta().equals(codigoRuta) && vuelo.getFecha().equals(fechaVuelo)) {
+        		return vuelo;
+        	}
+        }
     }
 
     /**
