@@ -15,6 +15,7 @@ public class ClienteCorporativo extends Cliente
     private int tamanoEmpresa;
     
     public ClienteCorporativo (String nombreEmpresa, int tamanoEmpresa) {
+    	super();
     	this.nombreEmpresa = nombreEmpresa;
     	this.tamanoEmpresa = tamanoEmpresa;
     }
