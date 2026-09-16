@@ -17,7 +17,7 @@ public class Aeropuerto
     private String nombreCiudad;
     private double latitud;
     private double longitud;
-    private Set<String> codigosUtilizados;
+    private static Set<String> codigosUtilizados = new HashSet<>();
     public static final int RADIO_TERRESTRE = 6371;
     
     public Aeropuerto(String nombre, String codigo, String nombreCiudad, double latitud, double longitud) {
@@ -26,7 +26,7 @@ public class Aeropuerto
     	this.nombreCiudad = nombreCiudad;
     	this.latitud = latitud;
     	this.longitud = longitud;
-    	this.codigosUtilizados = new HashSet<String>();
+    	codigosUtilizados.add(this.codigo);
     }
     
     
