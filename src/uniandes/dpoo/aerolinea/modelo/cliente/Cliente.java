@@ -19,9 +19,7 @@ public abstract class Cliente {
 	public abstract String getIdentificador();
 	
 	public void agregarTiquete(Tiquete tiquete) {
-		if (tiquete.esUsado()) {
-			this.tiquetesUsados.add(tiquete);
-		}else {
+		if (! tiquete.esUsado()) {
 			this.tiquetesSinUsar.add(tiquete);
 		}
 	}
@@ -36,9 +34,15 @@ public abstract class Cliente {
 	}
 	
 	public void usarTiquetes(Vuelo vuelo) {
-		for (Tiquete tiquete : vuelo.getTiquetes()) {
-			tiquete.marcarComoUsado();;
-		}
+		java.util.Iterator<Tiquete> iterator = this.tiquetesSinUsar.iterator();
+	    while (iterator.hasNext()) {
+	        Tiquete tiquete = iterator.next();
+	        if (tiquete.getVuelo().equals(vuelo)) {
+	            tiquete.marcarComoUsado();
+	            this.tiquetesUsados.add(tiquete);
+	            iterator.remove(); // Elimina de forma segura de tiquetesSinUsar
+	        }
+	    }
 	}
 	
 	

@@ -185,8 +185,7 @@ public class Aerolinea
      */
     public Collection<Tiquete> getTiquetes( )
     {
-        // TODO implementar
-        return null;
+        return this.getTiquetes();
 
     }
 
