@@ -1,6 +1,7 @@
 package uniandes.dpoo.aerolinea.modelo;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,7 +17,11 @@ import uniandes.dpoo.aerolinea.persistencia.CentralPersistencia;
 import uniandes.dpoo.aerolinea.persistencia.IPersistenciaAerolinea;
 import uniandes.dpoo.aerolinea.persistencia.IPersistenciaTiquetes;
 import uniandes.dpoo.aerolinea.persistencia.TipoInvalidoException;
+import uniandes.dpoo.aerolinea.tarifas.CalculadoraTarifasTemporadaBaja;
 import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
+import uniandes.dpoo.aerolinea.tarifas.CalculadoraTarifas;
+import uniandes.dpoo.aerolinea.tarifas.CalculadoraTarifasTemporadaAlta;
+
 
 /**
  * En esta clase se organizan todos los aspectos relacionados con una Aerolínea.
@@ -296,8 +301,34 @@ public class Aerolinea
      */
     public int venderTiquetes( String identificadorCliente, String fecha, String codigoRuta, int cantidad ) throws VueloSobrevendidoException, Exception
     {
+    	CalculadoraTarifas calculadora;
+    	Vuelo vuelo = getVuelo(codigoRuta, fecha);
+        LocalDate fechaParseada = LocalDate.parse(fecha);
+        // Extrae el mes como int (1 para Enero, 12 para Diciembre)
+        int mes = fechaParseada.getMonthValue();
+        if(mes==1 || mes==5||mes==9||mes==11) {
+        	calculadora = new CalculadoraTarifasTemporadaBaja();
+        	//Calcular con temporada baja
+        }else {
+        	calculadora = new CalculadoraTarifasTemporadaAlta();
+        	//calculartemporada alta
+        }
+        
+        int valorTiquetesVendidos = vuelo.venderTiquetes(getCliente(identificadorCliente), calculadora, cantidad);
+        
+        return valorTiquetesVendidos;
+        
+        
+    	//1. getvuelo
+    	//1. Identificar apartir de la fecha si es temporada alta o baja
+    	//2. funcion vender tiquetes de vuelo
+    	
+    	//Casos Excepciones: no se encontro el vuelo
+    	//El codigo del cliente no existe
+    	//
+    	
         // TODO Implementar el método
-        return -1;
+  
     }
 
     /**
