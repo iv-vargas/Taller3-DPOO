@@ -1,24 +1,30 @@
 package uniandes.dpoo.aerolinea.modelo;
 
+
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import uniandes.dpoo.aerolinea.exceptions.VueloSobrevendidoException;
 import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
+import uniandes.dpoo.aerolinea.tarifas.CalculadoraTarifas;
+import uniandes.dpoo.aerolinea.tarifas.CalculadoraTarifasTemporadaBaja;
+import uniandes.dpoo.aerolinea.tiquetes.GeneradorTiquetes;
 import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
 
 public class Vuelo {
 	private String fecha;
 	private Ruta ruta;
 	private Avion avion;
-	private Map<String, Tiquete> mapaTiquetes;
+	private Map<String, Tiquete> tiquetes; //Tiquetes ya vendidos para el vuelo
 	
 	public Vuelo(Ruta ruta, String fecha, Avion avion) {
 		this.fecha = fecha;
 		this.ruta = ruta;
 		this.avion = avion;
-		this.mapaTiquetes = new HashMap<>();
+		this.tiquetes = new HashMap<>();
 	}
 
 	public String getFecha() {
@@ -34,12 +40,23 @@ public class Vuelo {
 	}
 
 	public Collection<Tiquete> getTiquetes() {
-		return mapaTiquetes.values();
+		return tiquetes.values();
 	}
 	
-	public int venderTiquetes(Cliente cliente, CalculadoraTarifas calculadora, int cantidad) {
-		// TODO implementar funcion
-		return 0;
+	public int venderTiquetes(Cliente cliente, CalculadoraTarifas calculadora, int cantidad) throws VueloSobrevendidoException{
+		// 1. Generar Tarifa
+		//2. Generar Tiquete
+		//3.Registrar Tiquete
+		//4. Registrar tiquete en mapa vuelo
+		int tarifa = calculadora.calcularTarifa(this, cliente);
+		int precioTotal = cantidad*tarifa;
+		for (int i = 0; i<cantidad; i++) {
+			Tiquete tiquete = GeneradorTiquetes.generarTiquete(this, cliente, tarifa);
+			GeneradorTiquetes.registrarTiquete(tiquete);
+			this.tiquetes.put(tiquete.getCodigo(), tiquete);
+		}
+
+		return precioTotal;
 	}
 
 
@@ -53,7 +70,7 @@ public class Vuelo {
 			return false;
 		Vuelo other = (Vuelo) obj;
 		return Objects.equals(avion, other.avion) && Objects.equals(fecha, other.fecha)
-				&& Objects.equals(mapaTiquetes, other.mapaTiquetes) && Objects.equals(ruta, other.ruta);
+				&& Objects.equals(ruta, other.ruta);
 	}
 	
 	
