@@ -1,6 +1,6 @@
 package uniandes.dpoo.aerolinea.tarifas;
 
-import java.util.Random;
+
 
 import uniandes.dpoo.aerolinea.modelo.Vuelo;
 import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
@@ -8,17 +8,14 @@ import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
 public class CalculadoraTarifasTemporadaAlta extends CalculadoraTarifas {
 	protected final int COSTO_POR_KM = 1000;
 	
-	public int calcularCostoBase​(Vuelo vuelo,
-			Cliente cliente) {
+    public int calcularCostoBase(Vuelo vuelo, Cliente cliente) {
 		int distanciaVuelo = calcularDistanciaVuelo(vuelo.getRuta());
 		return distanciaVuelo * COSTO_POR_KM;
 		
 	}
 	
-	public double calcularPorcentajeDescuento​(Cliente cliente) {
+	public double calcularPorcentajeDescuento(Cliente cliente) {
 		return 0;
-		//Random r = new Random();
-		//return r.nextDouble();
 
 	}
 

@@ -1,5 +1,7 @@
 package uniandes.dpoo.aerolinea.modelo;
 
+import java.util.Objects;
+
 /**
  * Esta clase tiene la información de una ruta entre dos aeropuertos que cubre una aerolínea.
  */
@@ -105,6 +107,31 @@ public class Ruta
         int horas = Integer.parseInt( horaCompleta ) / 100;
         return horas;
     }
+
+
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigoRuta);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ruta other = (Ruta) obj;
+		return Objects.equals(codigoRuta, other.codigoRuta);
+	}
+    
+    
 
     
 }

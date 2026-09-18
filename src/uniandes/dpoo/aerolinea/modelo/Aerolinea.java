@@ -163,11 +163,18 @@ public class Aerolinea
      */
     public Vuelo getVuelo( String codigoRuta, String fechaVuelo )
     {
+    	
+    	Vuelo resultado = this.vuelos.get(0);
+    	// 1. Sacar ruta del hashmap
+    	//2. Sacar vuelo de la ruta
+    	
         for (Vuelo vuelo:this.vuelos) {
         	if (vuelo.getRuta().getCodigoRuta().equals(codigoRuta) && vuelo.getFecha().equals(fechaVuelo)) {
-        		return vuelo;
+        		resultado = vuelo;
+        		
         	}
         }
+        return resultado;
     }
 
     /**
@@ -205,7 +212,8 @@ public class Aerolinea
      */
     public void cargarAerolinea( String archivo, String tipoArchivo ) throws TipoInvalidoException, IOException, InformacionInconsistenteException
     {
-        // TODO implementar
+    	IPersistenciaTiquetes cargador = CentralPersistencia.getPersistenciaAerolinea( tipoArchivo );
+    	cargador.cargarAerolinea( archivo, this );
     }
 
     /**
@@ -217,6 +225,7 @@ public class Aerolinea
      */
     public void salvarAerolinea( String archivo, String tipoArchivo ) throws TipoInvalidoException, IOException
     {
+    	
         // TODO implementar
     }
 
