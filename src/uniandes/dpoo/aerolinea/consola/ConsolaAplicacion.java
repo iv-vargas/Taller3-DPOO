@@ -40,10 +40,7 @@ public class ConsolaAplicacion extends ConsolaBasica
 
     private Aerolinea unaAerolinea;
 
-    /**
-     * Indica si ya se cargó exitosamente la información de la aerolínea. Los aeropuertos no se pueden volver a crear con los mismos códigos dentro de una misma ejecución,
-     * así que la carga solo se permite una vez.
-     */
+    
     private boolean aerolineaCargada;
 
     public ConsolaAplicacion( )
@@ -52,9 +49,6 @@ public class ConsolaAplicacion extends ConsolaBasica
         aerolineaCargada = false;
     }
 
-    // ************************************************************************************
-    // Menú principal
-    // ************************************************************************************
 
     public void correrAplicacion( )
     {
@@ -69,54 +63,55 @@ public class ConsolaAplicacion extends ConsolaBasica
             int opcion = mostrarMenu( "Menú principal", opciones );
             try
             {
-                switch( opcion )
+                if (opcion == 1)
                 {
-                    case 1:
-                        cargarAerolinea( );
-                        break;
-                    case 2:
-                        salvarAerolinea( );
-                        break;
-                    case 3:
-                        cargarTiquetes( );
-                        break;
-                    case 4:
-                        salvarTiquetes( );
-                        break;
-                    case 5:
-                        programarVuelo( );
-                        break;
-                    case 6:
-                        venderTiquetes( );
-                        break;
-                    case 7:
-                        registrarVueloRealizado( );
-                        break;
-                    case 8:
-                        consultarSaldoPendiente( );
-                        break;
-                    case 9:
-                        mostrarInformacion( );
-                        break;
-                    case 10:
-                        System.out.println( "\nGracias por usar la aplicación. ¡Hasta pronto!" );
-                        continuar = false;
-                        break;
-                    default:
-                        break;
+                    cargarAerolinea();
+                }
+                else if (opcion == 2)
+                {
+                    salvarAerolinea();
+                }
+                else if (opcion == 3)
+                {
+                    cargarTiquetes();
+                }
+                else if (opcion == 4)
+                {
+                    salvarTiquetes();
+                }
+                else if (opcion == 5)
+                {
+                    programarVuelo();
+                }
+                else if (opcion == 6)
+                {
+                    venderTiquetes();
+                }
+                else if (opcion == 7)
+                {
+                    registrarVueloRealizado();
+                }
+                else if (opcion == 8)
+                {
+                    consultarSaldoPendiente();
+                }
+                else if (opcion == 9)
+                {
+                    mostrarInformacion();
+                }
+                else if (opcion == 10)
+                {
+                    System.out.println("\nGracias por usar la aplicación. ¡Hasta pronto!");
+                    continuar = false;
                 }
             }
-            catch( Exception e )
-            {
-                // Cualquier problema no previsto (por ejemplo, un archivo JSON mal formado) se le informa al usuario sin cerrar la aplicación
-                System.out.println( "\nOcurrió un error inesperado: " + e );
+            catch (Exception e)
+            {        
+                System.out.println("\nOcurrió un error inesperado: " + e);
             }
         }
     }
 
-    // ************************************************************************************
-    // Cargar y salvar
-    // ************************************************************************************
 
     private void cargarAerolinea( )
     {
@@ -233,9 +228,6 @@ public class ConsolaAplicacion extends ConsolaBasica
         }
     }
 
-    // ************************************************************************************
-    // Funcionalidades de la aerolínea
-    // ************************************************************************************
 
     private void programarVuelo( )
     {
@@ -392,9 +384,6 @@ public class ConsolaAplicacion extends ConsolaBasica
         System.out.println( "(Suma de lo pagado por los tiquetes que todavía no ha utilizado)" );
     }
 
-    // ************************************************************************************
-    // Información de la aerolínea
-    // ************************************************************************************
 
     private void mostrarInformacion( )
     {
@@ -451,13 +440,7 @@ public class ConsolaAplicacion extends ConsolaBasica
             System.out.println( "  - " + cliente.getIdentificador( ) + " (" + cliente.getTipoCliente( ) + ")" );
     }
 
-    // ************************************************************************************
-    // Métodos auxiliares para pedir datos
-    // ************************************************************************************
-
-    /**
-     * Le pide al usuario el nombre de un archivo. Si solo escribe Enter se usa el nombre por defecto, y si escribe un nombre sin ruta se busca dentro de la carpeta datos.
-     */
+  
     private String pedirArchivo( String mensaje, String nombrePorDefecto )
     {
         String nombre = pedirCadenaAlUsuario( mensaje + " (Enter para usar '" + nombrePorDefecto + "')" );
@@ -470,9 +453,7 @@ public class ConsolaAplicacion extends ConsolaBasica
         return CARPETA_DATOS + nombre;
     }
 
-    /**
-     * Le pide al usuario una fecha, y repite la pregunta hasta que tenga el formato AAAA-MM-DD y sea una fecha real
-     */
+   
     private String pedirFecha( String mensaje )
     {
         while( true )
@@ -490,9 +471,7 @@ public class ConsolaAplicacion extends ConsolaBasica
         }
     }
 
-    /**
-     * Le pide al usuario un entero positivo, y repite la pregunta hasta que lo obtenga
-     */
+ 
     private int pedirCantidad( String mensaje )
     {
         int cantidad = pedirEnteroAlUsuario( mensaje );
@@ -504,9 +483,7 @@ public class ConsolaAplicacion extends ConsolaBasica
         return cantidad;
     }
 
-    /**
-     * Si el archivo ya existe, le pide confirmación al usuario antes de sobrescribirlo
-     */
+
     private boolean confirmarSobrescritura( String archivo )
     {
         if( new File( archivo ).exists( ) )
@@ -521,9 +498,7 @@ public class ConsolaAplicacion extends ConsolaBasica
             padre.mkdirs( );
     }
 
-    // ************************************************************************************
-    // Métodos auxiliares para dar formato a la información
-    // ************************************************************************************
+
 
     private String describirAvion( Avion avion )
     {
@@ -576,10 +551,7 @@ public class ConsolaAplicacion extends ConsolaBasica
         return usados;
     }
 
-    // ************************************************************************************
-    // Punto de entrada
-    // ************************************************************************************
-
+    
     public static void main( String[] args )
     {
         ConsolaAplicacion consola = new ConsolaAplicacion( );

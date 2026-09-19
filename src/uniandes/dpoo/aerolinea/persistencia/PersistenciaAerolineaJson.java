@@ -19,43 +19,36 @@ import uniandes.dpoo.aerolinea.modelo.Avion;
 import uniandes.dpoo.aerolinea.modelo.Ruta;
 import uniandes.dpoo.aerolinea.modelo.Vuelo;
 
-/**
- * Persistencia de los aviones, aeropuertos, rutas y vuelos de una aerolínea en un archivo JSON.
- * (Los clientes y los tiquetes se persisten aparte, en PersistenciaTiquetesJson.)
- */
+
 public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 
-	// Llaves de primer nivel
+
 	private static final String AVIONES = "aviones";
 	private static final String AEROPUERTOS = "aeropuertos";
 	private static final String RUTAS = "rutas";
 	private static final String VUELOS = "vuelos";
 
-	// Aviones
+
 	private static final String NOMBRE_AVION = "nombre";
 	private static final String CAPACIDAD = "capacidad";
 
-	// Aeropuertos
+
 	private static final String NOMBRE_AEROPUERTO = "nombre";
 	private static final String CODIGO_AEROPUERTO = "codigo";
 	private static final String NOMBRE_CIUDAD = "nombreCiudad";
 	private static final String LATITUD = "latitud";
 	private static final String LONGITUD = "longitud";
 
-	// Rutas
 	private static final String HORA_SALIDA = "horaSalida";
 	private static final String HORA_LLEGADA = "horaLlegada";
 	private static final String CODIGO_RUTA = "codigoRuta";
 	private static final String ORIGEN = "origen";
 	private static final String DESTINO = "destino";
 
-	// Vuelos
 	private static final String FECHA = "fecha";
 	private static final String AVION_DEL_VUELO = "nombreAvion";
 
-	// ------------------------------------------------------------------
-	// CARGAR
-	// ------------------------------------------------------------------
+
 
 	@Override
 	public void cargarAerolinea(String archivo, Aerolinea aerolinea) throws IOException, InformacionInconsistenteException {
@@ -63,7 +56,6 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 		try {
 			JSONObject raiz = new JSONObject(jsonCompleto);
 
-			// El orden importa: las rutas necesitan los aeropuertos y los vuelos necesitan rutas y aviones
 			cargarAviones(aerolinea, raiz.getJSONArray(AVIONES));
 			Map<String, Aeropuerto> aeropuertos = cargarAeropuertos(raiz.getJSONArray(AEROPUERTOS));
 			cargarRutas(aerolinea, raiz.getJSONArray(RUTAS), aeropuertos);
@@ -82,10 +74,7 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 		}
 	}
 
-	/**
-	 * La aerolínea no guarda los aeropuertos directamente (solo a través de las rutas), por eso se devuelven en un mapa
-	 * indexado por código, para poder armar las rutas después.
-	 */
+	
 	private Map<String, Aeropuerto> cargarAeropuertos(JSONArray jAeropuertos) throws InformacionInconsistenteException {
 		Map<String, Aeropuerto> aeropuertos = new LinkedHashMap<>();
 		for (int i = 0; i < jAeropuertos.length(); i++) {
@@ -116,7 +105,6 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 		for (int i = 0; i < jRutas.length(); i++) {
 			JSONObject jRuta = jRutas.getJSONObject(i);
 			String codigoRuta = jRuta.getString(CODIGO_RUTA);
-			// Las horas se leen como texto aunque en el archivo vengan como número (ej. 715)
 			String horaSalida = jRuta.get(HORA_SALIDA).toString();
 			String horaLlegada = jRuta.get(HORA_LLEGADA).toString();
 
@@ -170,9 +158,6 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 		}
 	}
 
-	// ------------------------------------------------------------------
-	// SALVAR
-	// ------------------------------------------------------------------
 
 	@Override
 	public void salvarAerolinea(String archivo, Aerolinea aerolinea) throws IOException {
@@ -184,7 +169,7 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 		salvarVuelos(aerolinea, jobject);
 
 		try (PrintWriter pw = new PrintWriter(archivo)) {
-			jobject.write(pw, 2, 0);
+			jobject.write(pw, 2, 0); //Guarda JSON en disco
 		}
 	}
 
@@ -199,10 +184,7 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 		jobject.put(AVIONES, jAviones);
 	}
 
-	/**
-	 * Como la aerolínea solo conoce los aeropuertos a través de sus rutas, se recolectan los aeropuertos de origen y
-	 * destino de todas las rutas, sin repetir.
-	 */
+
 	private void salvarAeropuertos(Aerolinea aerolinea, JSONObject jobject) {
 		Map<String, Aeropuerto> aeropuertos = new LinkedHashMap<>();
 		for (Ruta ruta : aerolinea.getRutas()) {
