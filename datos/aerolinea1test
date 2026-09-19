@@ -1,0 +1,87 @@
+{
+  "aviones": [
+    {
+      "nombre": "A320-1",
+      "capacidad": 3
+    },
+    {
+      "nombre": "B737-2",
+      "capacidad": 180
+    }
+  ],
+  "aeropuertos": [
+    {
+      "codigo": "BOG",
+      "latitud": 4.7016,
+      "longitud": -74.1469,
+      "nombreCiudad": "Bogotá",
+      "nombre": "El Dorado"
+    },
+    {
+      "codigo": "MDE",
+      "latitud": 6.1645,
+      "longitud": -75.4231,
+      "nombreCiudad": "Rionegro",
+      "nombre": "José María Córdova"
+    },
+    {
+      "codigo": "CTG",
+      "latitud": 10.4424,
+      "longitud": -75.513,
+      "nombreCiudad": "Cartagena",
+      "nombre": "Rafael Núñez"
+    }
+  ],
+  "vuelos": [
+    {
+      "fecha": "2024-11-05",
+      "codigoRuta": "4558",
+      "nombreAvion": "A320-1"
+    },
+    {
+      "fecha": "2024-07-10",
+      "codigoRuta": "4558",
+      "nombreAvion": "B737-2"
+    },
+    {
+      "fecha": "2024-02-10",
+      "codigoRuta": "4558",
+      "nombreAvion": "B737-2"
+    },
+    {
+      "fecha": "2025-12-12",
+      "codigoRuta": "1001",
+      "nombreAvion": "A320-1"
+    }
+  ],
+  "rutas": [
+    {
+      "codigoRuta": "4560",
+      "horaLlegada": "800",
+      "origen": "BOG",
+      "destino": "MDE",
+      "horaSalida": "700"
+    },
+    {
+      "codigoRuta": "1001",
+      "horaLlegada": "30",
+      "origen": "BOG",
+      "destino": "MDE",
+      "horaSalida": "2300"
+    },
+    {
+      "codigoRuta": "4558",
+      "horaLlegada": "830",
+      "origen": "BOG",
+      "destino": "CTG",
+      "horaSalida": "715"
+    },
+    {
+      "codigoRuta": "4559",
+      "horaLlegada": "1015",
+      "origen": "CTG",
+      "destino": "BOG",
+      "horaSalida": "900"
+    }
+  ]
+}

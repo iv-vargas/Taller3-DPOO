@@ -1,0 +1,22 @@
+{
+  "aviones": [
+    {"nombre": "A320-1", "capacidad": 3},
+    {"nombre": "B737-2", "capacidad": 180}
+  ],
+  "aeropuertos": [
+    {"nombre": "El Dorado", "codigo": "BOG", "nombreCiudad": "Bogotá", "latitud": 4.7016, "longitud": -74.1469},
+    {"nombre": "José María Córdova", "codigo": "MDE", "nombreCiudad": "Rionegro", "latitud": 6.1645, "longitud": -75.4231},
+    {"nombre": "Rafael Núñez", "codigo": "CTG", "nombreCiudad": "Cartagena", "latitud": 10.4424, "longitud": -75.5130}
+  ],
+  "rutas": [
+    {"codigoRuta": "4558", "horaSalida": "715",  "horaLlegada": "830",  "origen": "BOG", "destino": "CTG"},
+    {"codigoRuta": "4559", "horaSalida": "900",  "horaLlegada": "1015", "origen": "CTG", "destino": "BOG"},
+    {"codigoRuta": "4560", "horaSalida": "700",  "horaLlegada": "800",  "origen": "BOG", "destino": "MDE"},
+    {"codigoRuta": "1001", "horaSalida": "2300", "horaLlegada": "30",   "origen": "BOG", "destino": "MDE"}
+  ],
+  "vuelos": [
+    {"fecha": "2024-11-05", "codigoRuta": "4558", "nombreAvion": "A320-1"},
+    {"fecha": "2024-07-10", "codigoRuta": "4558", "nombreAvion": "B737-2"},
+    {"fecha": "2024-02-10", "codigoRuta": "4558", "nombreAvion": "B737-2"}
+  ]
+}
