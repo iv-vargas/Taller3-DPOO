@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import uniandes.dpoo.aerolinea.exceptions.AeropuertoDuplicadoException;
 import uniandes.dpoo.aerolinea.exceptions.InformacionInconsistenteException;
 import uniandes.dpoo.aerolinea.modelo.Aerolinea;
 import uniandes.dpoo.aerolinea.modelo.Aeropuerto;
@@ -102,8 +103,7 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 			Aeropuerto aeropuerto;
 			try {
 				aeropuerto = new Aeropuerto(nombre, codigo, nombreCiudad, latitud, longitud);
-			} catch (Exception e) {
-				// Por ejemplo, AeropuertoDuplicadoException si el constructor la declara
+			} catch (AeropuertoDuplicadoException e) {
 				throw new InformacionInconsistenteException(e.getMessage());
 			}
 			aeropuertos.put(codigo, aeropuerto);
@@ -162,7 +162,11 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea {
 						"El vuelo " + codigoRuta + " del " + fecha + " usa un avión que no existe: " + nombreAvion);
 			}
 
-			aerolinea.programarVuelo(fecha, codigoRuta, nombreAvion);
+			try {
+				aerolinea.programarVuelo(fecha, codigoRuta, nombreAvion);
+			} catch (Exception e) {
+				throw new InformacionInconsistenteException(e.getMessage());
+			}
 		}
 	}
 

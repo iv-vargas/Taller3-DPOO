@@ -59,6 +59,10 @@ public class Vuelo {
 	    }
 	    return precioTotal;
 	}
+	
+	public void agregarTiquete(Tiquete tiquete) {
+	    this.tiquetes.put(tiquete.getCodigo(), tiquete);
+	}
 
 
 	@Override

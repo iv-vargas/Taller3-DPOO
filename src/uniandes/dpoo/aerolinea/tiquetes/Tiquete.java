@@ -13,12 +13,15 @@ public class Tiquete {
 	
 	
 	public Tiquete(String codigo, Vuelo vuelo, Cliente clienteComprador, int tarifa) {
+
+
 		this.codigo = codigo;
 		this.vuelo = vuelo;
 		this.cliente = clienteComprador;
 		this.tarifa = tarifa;
 		this.usado = false;
 		this.cliente.agregarTiquete(this); //Agregar tiquete actual a cliente (revisar)
+		this.vuelo.agregarTiquete(this);
 		
 	}
 	
